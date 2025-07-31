@@ -31,7 +31,7 @@ service cloud.firestore {
     // - Authenticated users can read invitations where their email is the inviteeEmail.
     // - Authenticated users can update invitations (e.g., accept/decline) if they are the invitee.
     match /invitations/{invitationId} {
-      allow create: if request.auth.uid != null;
+      allow create: if request.auth != null; // Changed from request.auth.uid != null
       allow read: if request.auth.uid != null && request.auth.token.email == resource.data.inviteeEmail;
       allow update: if request.auth.uid != null && request.auth.token.email == resource.data.inviteeEmail;
     }
