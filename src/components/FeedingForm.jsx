@@ -56,7 +56,7 @@ const FeedingForm = ({ childId, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4 animate-fadeIn">
-      <div className="bg-surface p-8 rounded-2xl shadow-glow-lg border border-border w-full max-w-lg transform transition-all duration-300 hover:scale-[1.01]">
+      <div className="bg-surface p-8 rounded-2xl shadow-glow-lg border border-border w-full max-w-lg transform transition-all duration-300 hover:scale-[1.01] max-h-[90vh] overflow-y-auto">
         <h2 className="text-3xl font-bold text-primary mb-6 text-center">Add New Feeding Record</h2>
         {error && <p className="text-error text-center mb-4">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-5">

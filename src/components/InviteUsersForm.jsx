@@ -45,6 +45,13 @@ const InviteUsersForm = ({ childId, childName, onClose }) => {
         return;
       }
 
+      // --- ADD THESE CONSOLE LOGS ---
+      console.log('Attempting to send invitation...');
+      console.log('currentUser:', currentUser);
+      console.log('currentUser.uid:', currentUser?.uid);
+      console.log('currentUser.email:', currentUser?.email);
+      // --- END CONSOLE LOGS ---
+
       // Send invitation
       await addDoc(collection(db, 'invitations'), {
         childId,

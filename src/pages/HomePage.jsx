@@ -48,13 +48,14 @@ const HomePage = () => {
 
   const handleAcceptInvitation = async (invitationId, childId) => {
     try {
-      // Update invitation status
+      // ONLY update invitation status on the client-side.
+      // The Cloud Function will handle adding the user to the child's managers.
       await updateDoc(doc(db, 'invitations', invitationId), { status: 'accepted' });
-      // Add current user to child's managers
-      await updateDoc(doc(db, 'children', childId), { managers: arrayUnion(currentUser.uid) });
-      // Remove invitation from user's profile (optional, but good for cleanup)
-      await updateDoc(doc(db, 'users', currentUser.uid), { invitations: arrayRemove(invitationId) });
-      alert('Invitation accepted! You can now manage this child profile.');
+      
+      // Removed: await updateDoc(doc(db, 'children', childId), { managers: arrayUnion(currentUser.uid) });
+      // This is now handled by the Cloud Function for security reasons.
+
+      alert('Invitation accepted! You will now see this child profile appear shortly.');
     } catch (error) {
       console.error('Error accepting invitation:', error);
       alert('Failed to accept invitation. Please try again.');
@@ -64,8 +65,6 @@ const HomePage = () => {
   const handleDeclineInvitation = async (invitationId) => {
     try {
       await updateDoc(doc(db, 'invitations', invitationId), { status: 'declined' });
-      // Remove invitation from user's profile (optional)
-      await updateDoc(doc(db, 'users', currentUser.uid), { invitations: arrayRemove(invitationId) });
       alert('Invitation declined.');
     } catch (error) {
       console.error('Error declining invitation:', error);
