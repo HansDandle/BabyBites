@@ -29,12 +29,6 @@ const InviteUsersForm = ({ childId, childName, onClose }) => {
       return;
     }
 
-    // --- ADDED LOGS FOR DEBUGGING ---
-    console.log('Attempting to send invitation...');
-    console.log('Current User UID:', currentUser?.uid);
-    console.log('Current User Email:', currentUser?.email);
-    // --- END ADDED LOGS ---
-
     try {
       // Check if an invitation already exists for this child and email
       const existingInvitationsQuery = query(
